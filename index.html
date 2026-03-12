@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>edrone - Live events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: #fff;
+    color: rgba(0,0,0,.87);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+  }
+  .app { display: flex; min-height: 100vh; }
+
+  /* ── Sidebar ───────────────────────────────────── */
+  .sidebar {
+    width: 200px;
+    background: #fff;
+    border-right: 1px solid #e5e5e5;
+    padding: 0;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+  }
+  .sidebar-top .logo {
+    font-size: 18px;
+    font-weight: 500;
+    font-style: italic;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sidebar-top .logo .hamburger { font-style: normal; font-size: 20px; cursor: pointer; }
+  .sidebar-top .pin { font-size: 16px; color: #999; cursor: pointer; }
+  .sidebar nav { display: flex; flex-direction: column; }
+  .sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0,0,0,.7);
+    text-decoration: none;
+    transition: background .1s;
+    position: relative;
+  }
+  .sidebar nav a:hover { background: #f9f9f4; }
+  .sidebar nav a.active {
+    background: #fef9c3;
+    font-weight: 500;
+    color: rgba(0,0,0,.87);
+  }
+  .sidebar nav a .nav-icon { width: 20px; font-size: 16px; text-align: center; flex-shrink: 0; }
+  .sidebar nav a .nav-badge {
+    margin-left: auto;
+    background: #3b82f6;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 1px 8px;
+    border-radius: 100px;
+    min-width: 24px;
+    text-align: center;
+  }
+  .sidebar nav a .nav-arrow { margin-left: auto; font-size: 12px; color: #aaa; }
+  .sidebar nav a .nav-fire { margin-left: auto; font-size: 14px; }
+  .sidebar nav .sub-item { padding-left: 46px; font-size: 13px; color: rgba(0,0,0,.55); }
+  .sidebar nav .sub-item .sub-count { margin-left: auto; font-size: 12px; color: #aaa; }
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 16px;
+    border-top: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sidebar-footer .avatar-circle {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #e5e5e5;
+    display: grid; place-items: center;
+    font-size: 18px; color: #999;
+  }
+  .sidebar-footer .user-info { flex: 1; }
+  .sidebar-footer .user-name { font-size: 13px; font-weight: 500; }
+  .sidebar-footer .user-email { font-size: 12px; color: rgba(0,0,0,.45); }
+  .sidebar-footer .user-toggle { font-size: 12px; color: #aaa; cursor: pointer; }
+  .lang-select {
+    margin: 0 16px 16px;
+    padding: 8px 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    font-size: 13px;
+    background: #fff;
+    color: rgba(0,0,0,.7);
+    width: calc(100% - 32px);
+  }
+
+  /* ── Main ──────────────────────────────────────── */
+  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+
+  /* Topbar */
+  .topbar {
+    height: 48px;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .topbar .search {
+    display: flex; align-items: center; gap: 8px;
+    color: rgba(0,0,0,.4); font-size: 14px;
+  }
+  .topbar .search-icon { font-size: 16px; }
+  .topbar .add-user { font-size: 18px; color: rgba(0,0,0,.5); margin-left: 12px; cursor: pointer; }
+  .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+  .topbar-right .tb-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+    color: rgba(0,0,0,.6);
+  }
+  .topbar-right .tb-icon.sms { background: #222; color: #fff; font-size: 11px; font-weight: 700; }
+  .topbar-right .tb-icon.wa { background: #25d366; color: #fff; font-size: 16px; }
+  .topbar-right .tb-icon .tb-badge {
+    position: absolute; top: 0; right: 0;
+    background: #ef4444; color: #fff;
+    font-size: 10px; font-weight: 700;
+    min-width: 16px; height: 16px;
+    border-radius: 100px; display: grid; place-items: center;
+    padding: 0 4px;
+  }
+
+  /* Content split */
+  .content { display: flex; flex: 1; overflow: hidden; }
+
+  /* ── Left column: live events ──────────────────── */
+  .left-col {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    min-width: 0;
+    background: #fff;
+  }
+  .page-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
+  .page-title-icon { font-size: 28px; color: rgba(0,0,0,.3); }
+  .page-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: #222;
+    line-height: 1.3;
+  }
+  .page-subtitle { font-size: 14px; color: rgba(0,0,0,.6); margin-bottom: 20px; }
+
+  /* Newsletter promo */
+  .newsletter-promo {
+    background: #f3f0ff;
+    border: 1px solid #e0d5ff;
+    border-left: 4px solid #7c3aed;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .np-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #d1fae5; color: #059669;
+    font-size: 12px; font-weight: 500;
+    padding: 3px 10px; border-radius: 100px;
+    margin-bottom: 10px;
+  }
+  .np-row { display: flex; align-items: center; gap: 16px; }
+  .np-body { flex: 1; }
+  .np-title { font-size: 15px; font-weight: 500; color: #222; }
+  .np-desc { font-size: 13px; color: rgba(0,0,0,.55); margin-top: 2px; }
+  .np-cta {
+    padding: 8px 16px;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; white-space: nowrap;
+    text-decoration: none; color: #222;
+  }
+
+  /* Event cards */
+  .event-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    background: #fff;
+  }
+  .ec-top { display: flex; align-items: center; gap: 10px; }
+  .ec-icon { font-size: 20px; color: rgba(0,0,0,.4); }
+  .ec-action { font-size: 15px; font-weight: 500; }
+  .ec-action span { font-weight: 400; color: rgba(0,0,0,.55); }
+  .ec-tags { display: flex; gap: 6px; margin-left: 8px; }
+  .ec-tag {
+    font-size: 12px; padding: 2px 10px;
+    border-radius: 100px; border: 1px solid #e5e5e5;
+    background: #fff; color: rgba(0,0,0,.6);
+  }
+  .ec-time { margin-left: auto; font-size: 13px; color: rgba(0,0,0,.4); white-space: nowrap; }
+  .ec-badges { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .ec-badge {
+    font-size: 12px; padding: 3px 10px;
+    border-radius: 4px;
+    background: #f0f0ec; color: rgba(0,0,0,.6);
+  }
+  .ec-badge.green { background: #d1fae5; color: #059669; }
+  .ec-product-grid { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+  .ec-product { display: flex; gap: 10px; align-items: center; }
+  .ec-product img { width: 60px; height: 60px; object-fit: contain; border: 1px solid #e5e5e5; border-radius: 4px; background: #fafafa; }
+  .ec-product-info .ec-pname { font-size: 13px; font-weight: 500; }
+  .ec-product-info .ec-pprice { font-size: 12px; color: rgba(0,0,0,.5); }
+
+
+  /* ═══════════════════════════════════════════════════
+     RIGHT COLUMN — RECENT STORE ACTIVITY
+     Exact clone of edrone layout + new CTA insights
+     ═══════════════════════════════════════════════════ */
+  .right-col {
+    width: 560px;
+    flex-shrink: 0;
+    border-left: 1px solid #e5e5e5;
+    background: #fff;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Promo banner */
+  .promo-banner {
+    background: linear-gradient(135deg, #a855f7 0%, #9333ea 60%, #7c3aed 100%);
+    border-radius: 12px;
+    padding: 24px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .promo-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(255,255,255,.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,.05) 0%, transparent 40%);
+  }
+  .promo-banner .pb-content { position: relative; z-index: 1; }
+  .promo-banner .pb-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .promo-banner .pb-desc { font-size: 13px; opacity: .85; margin-bottom: 16px; line-height: 1.5; }
+  .promo-banner .pb-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fef08a; color: #222;
+    font-size: 14px; font-weight: 500;
+    padding: 8px 16px; border-radius: 4px;
+    border: none; cursor: pointer; text-decoration: none;
+  }
+  .promo-banner .pb-wheel {
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    width: 140px; height: 140px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #222; text-align: center;
+    padding: 12px;
+    z-index: 1;
+  }
+  /* Dots indicator */
+  .promo-dots { text-align: center; margin-bottom: 20px; }
+  .promo-dots span {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; background: #d4d4d4; margin: 0 3px;
+  }
+  .promo-dots span.active { background: #999; }
+
+  /* Section header */
+  .rsa-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .rsa-header h2 {
+    font-size: 24px; font-weight: 500; color: #222; line-height: 1.3;
+  }
+  .rsa-date {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid #e5e5e5; border-radius: 4px;
+    font-size: 13px; color: rgba(0,0,0,.7);
+    background: #fff; cursor: pointer; white-space: nowrap;
+  }
+  .rsa-date .cal-icon { font-size: 16px; }
+  .rsa-desc {
+    font-size: 14px; color: rgba(0,0,0,.55);
+    margin-bottom: 16px;
+  }
+
+  /* Metric grid — exact edrone style */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .metric-grid.cols-1 { grid-template-columns: 1fr 1fr 1fr; }
+  .metric-tile {
+    background: #fafafa;
+    border: 1px solid #fafafa;
+    border-radius: 4px;
+    padding: 12px;
+  }
+  .metric-tile:hover { border-color: #e5e5e5; }
+  .mt-label {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 14px; color: rgba(0,0,0,.65);
+    font-weight: 400; margin-bottom: 6px;
+  }
+  .mt-label .mt-emoji { font-size: 14px; }
+  .mt-label .mt-help {
+    width: 16px; height: 16px;
+    border-radius: 50%; border: 1px solid #d4d4d4;
+    display: inline-grid; place-items: center;
+    font-size: 10px; color: #aaa;
+    cursor: help; margin-left: 2px;
+    background: #fff;
+  }
+  .mt-value {
+    font-size: 32px; font-weight: 500;
+    color: #222; line-height: 1.2;
+  }
+
+  /* Funnel stage label */
+  .funnel-row {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 16px; font-weight: 400;
+    color: rgba(0,0,0,.8);
+    margin: 16px 0 12px;
+  }
+  .funnel-row .fr-arrow { font-size: 14px; color: #aaa; cursor: pointer; }
+
+  /* ── NEW: Insight CTA Cards ────────────────────── */
+  .insight-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .insight-card .ic-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .insight-card .ic-body { flex: 1; min-width: 0; }
+  .insight-card .ic-text { font-weight: 400; color: #222; }
+  .insight-card .ic-text strong { font-weight: 700; }
+  .insight-card .ic-sub { font-size: 12px; color: rgba(0,0,0,.5); margin-top: 3px; }
+  .insight-card .ic-cta {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 13px; font-weight: 500;
+    padding: 7px 14px; border-radius: 4px;
+    border: none; cursor: pointer;
+    white-space: nowrap; flex-shrink: 0;
+    align-self: center; text-decoration: none;
+    transition: filter .15s;
+  }
+  .insight-card .ic-cta:hover { filter: brightness(.9); }
+
+  /* Variants matching edrone palette */
+  .insight-card.red    { background: #fef2f2; }
+  .insight-card.red .ic-cta { background: #ef4444; color: #fff; }
+
+  .insight-card.orange { background: #fff7ed; }
+  .insight-card.orange .ic-cta { background: #ea580c; color: #fff; }
+
+  .insight-card.green  { background: #f0fdf4; }
+  .insight-card.green .ic-cta { background: #16a34a; color: #fff; }
+
+  .insight-card.blue   { background: #eff6ff; }
+  .insight-card.blue .ic-cta { background: #2563eb; color: #fff; }
+
+  .insight-card.purple { background: #f3f0ff; }
+  .insight-card.purple .ic-cta { background: #7c3aed; color: #fff; }
+
+  .insight-card.yellow { background: #fefce8; }
+  .insight-card.yellow .ic-cta { background: #ca8a04; color: #fff; }
+
+  /* Divider */
+  .rsa-divider { height: 1px; background: #e5e5e5; margin: 12px 0 4px; }
+
+  /* Footer CTA */
+  .rsa-footer { margin-top: 16px; }
+  .rsa-footer .rf-cta {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 13px;
+    background: #7c3aed; color: #fff;
+    font-size: 15px; font-weight: 500;
+    border: none; border-radius: 8px;
+    cursor: pointer; text-decoration: none;
+    transition: background .15s;
+  }
+  .rsa-footer .rf-cta:hover { background: #6d28d9; }
+  .rsa-footer .rf-stat {
+    text-align: center; font-size: 12px;
+    color: rgba(0,0,0,.45); margin-top: 8px;
+  }
+  .rsa-footer .rf-stat strong { color: #16a34a; font-weight: 500; }
+
+  /* ── Responsive ────────────────────────────────── */
+  @media (max-width: 1200px) { .right-col { width: 440px; } }
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .content { flex-direction: column; }
+    .right-col { width: 100%; border-left: none; border-top: 1px solid #e5e5e5; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ── Sidebar ─────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="logo"><span class="hamburger">&#9776;</span> <i>edrone</i></div>
+      <span class="pin">&#128204;</span>
+    </div>
+    <nav>
+      <a href="#" class="active">
+        <span class="nav-icon">&#11036;</span> Live events
+      </a>
+      <a href="#">
+        <span class="nav-icon">&#128233;</span> Inbox
+        <span class="nav-badge">133</span>
+      </a>
+      <a href="#">
+        <span class="nav-icon">&#9993;</span> Newsletter
+        <span class="nav-arrow">&#9662;</span>
+      </a>
+      <a href="#">
+        <span class="nav-icon">&#8618;</span> Automations
+        <span class="nav-arrow">&#9662;</span>
+      </a>
+      <a href="#" class="sub-item">Ready flows <span class="sub-count">0 / 17</span></a>
+      <a href="#" class="sub-item">Custom flows <span class="sub-count">1 / 3</span></a>
+      <a href="#">
+        <span class="nav-icon">&#9645;</span> Onsites
+        <span class="nav-fire">&#128293;</span>
+        <span class="nav-arrow">&#9662;</span>
+      </a>
+      <a href="#">
+        <span class="nav-icon">&#9734;</span> Reviews
+        <span class="nav-arrow">&#9662;</span>
+      </a>
+      <a href="#">
+        <span class="nav-icon">&#128101;</span> Customers
+        <span class="nav-arrow">&#9662;</span>
+      </a>
+      <a href="#">
+        <span class="nav-icon">&#128295;</span> Resources
+        <span class="nav-arrow">&#9662;</span>
+      </a>
+      <a href="#">
+        <span class="nav-icon">&#128200;</span> Reports
+        <span class="nav-fire">&#128293;</span>
+        <span class="nav-arrow">&#9662;</span>
+      </a>
+      <a href="#">
+        <span class="nav-icon">&#10024;</span> AI Banner Generator
+      </a>
+    </nav>
+    <select class="lang-select"><option>English</option></select>
+    <div class="sidebar-footer">
+      <div class="avatar-circle">&#128100;</div>
+      <div class="user-info">
+        <div class="user-name">Demo Agent</div>
+        <div class="user-email">demo.en@edrone.me</div>
+      </div>
+      <span class="user-toggle">&#9662;</span>
+    </div>
+  </aside>
+
+  <!-- ── Main ────────────────────────────────────── -->
+  <div class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="search">
+        <span class="search-icon">&#128269;</span>
+        Search for customers and products
+      </div>
+      <span class="add-user">&#128101;+</span>
+      <div class="topbar-right">
+        <div class="tb-icon sms">SMS</div>
+        <div class="tb-icon wa">&#9742;</div>
+        <div class="tb-icon">&#128276;<span class="tb-badge">2</span></div>
+        <div class="tb-icon">&#128172;<span class="tb-badge">11</span></div>
+        <div class="tb-icon">?</div>
+        <div class="tb-icon">&#9432;</div>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- ── Left: Live Events ───────────────────── -->
+      <section class="left-col">
+        <div class="page-title-row">
+          <span class="page-title-icon">&#11036;</span>
+          <div>
+            <div class="page-title">First steps done? Great! Now keep going &#128170;</div>
+          </div>
+        </div>
+        <p class="page-subtitle">See how customers interact across your website and messages while Marketing Automation reacts in real time.</p>
+
+        <!-- Newsletter promo -->
+        <div class="newsletter-promo">
+          <div class="np-tag">&#128994; Now live</div>
+          <div class="np-row">
+            <div class="np-body">
+              <div class="np-title">Check out newsletters prepared for you</div>
+              <div class="np-desc">A new section with ready-to-send emails &mdash; fresh ideas waiting to inspire your next campaign.</div>
+            </div>
+            <a href="#" class="np-cta">See newsletters &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Event: Automation started -->
+        <div class="event-card">
+          <div class="ec-top">
+            <span class="ec-icon">&#9655;</span>
+            <span class="ec-action">Automation started <span>- Birthday</span></span>
+            <div class="ec-tags"><span class="ec-tag">Olivia</span></div>
+            <span class="ec-time">2 hours ago</span>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="ec-top">
+            <span class="ec-icon">&#9655;</span>
+            <span class="ec-action">Automation started <span>- Birthday</span></span>
+            <div class="ec-tags"><span class="ec-tag">Tom</span></div>
+            <span class="ec-time">2 hours ago</span>
+          </div>
+        </div>
+
+        <!-- Event: Product viewed -->
+        <div class="event-card">
+          <div class="ec-top">
+            <span class="ec-icon" style="color:#16a34a;">&#9673;</span>
+            <span class="ec-action">Product viewed</span>
+            <div class="ec-tags"><span class="ec-tag">John</span></div>
+            <span class="ec-time">2 hours ago</span>
+          </div>
+          <div class="ec-badges">
+            <span class="ec-badge green">&#9655; Automations started</span>
+            <span class="ec-badge">Viewed products</span>
+            <span class="ec-badge">Recommendations</span>
+            <span class="ec-badge">Back in stock</span>
+          </div>
+          <div class="ec-product-grid">
+            <div class="ec-product">
+              <div style="width:60px;height:60px;background:#f5f5f5;border:1px solid #e5e5e5;border-radius:4px;display:grid;place-items:center;font-size:24px;">&#128241;</div>
+              <div class="ec-product-info">
+                <div class="ec-pname">Apple iPhone 15 Pro 128GB</div>
+                <div class="ec-pprice">R$999.00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event: Message sent -->
+        <div class="event-card">
+          <div class="ec-top">
+            <span class="ec-icon">&#128172;</span>
+            <span class="ec-action">Message sent <span>- Restore customers</span></span>
+            <div class="ec-tags">
+              <span class="ec-tag">Preview</span>
+              <span class="ec-tag">Olivia</span>
+            </div>
+            <span class="ec-time">2 hours ago</span>
+          </div>
+        </div>
+
+        <!-- Event: Order -->
+        <div class="event-card">
+          <div class="ec-top">
+            <span class="ec-icon" style="color:#16a34a;">&#127881;</span>
+            <span class="ec-action">Order</span>
+            <div class="ec-tags"><span class="ec-tag">Peter</span></div>
+            <span class="ec-time">2 hours ago</span>
+          </div>
+          <div class="ec-badges">
+            <span class="ec-badge green">&#9655; Automations started</span>
+            <span class="ec-badge">Loyalty program</span>
+            <span class="ec-badge">After sale</span>
+            <span class="ec-badge">Ask for review</span>
+            <span class="ec-badge">+1 more</span>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════
+           RIGHT: RECENT STORE ACTIVITY
+           Exact edrone tile layout + new insight CTAs
+           ═══════════════════════════════════════════ -->
+      <aside class="right-col">
+
+        <!-- Value banner: data-driven, shows what merchant is leaving on the table -->
+        <div class="promo-banner" style="padding-bottom:20px;">
+          <div class="pb-content" style="max-width:100%;">
+            <div style="display:flex;gap:16px;margin-bottom:16px;">
+              <div style="flex:1;background:rgba(255,255,255,.15);border-radius:8px;padding:12px 14px;text-align:center;">
+                <div style="font-size:28px;font-weight:700;line-height:1.2;">2,760</div>
+                <div style="font-size:11px;opacity:.75;margin-top:2px;">visitors left without buying</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,.15);border-radius:8px;padding:12px 14px;text-align:center;">
+                <div style="font-size:28px;font-weight:700;line-height:1.2;">1,260</div>
+                <div style="font-size:11px;opacity:.75;margin-top:2px;">carts abandoned this week</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,.15);border-radius:8px;padding:12px 14px;text-align:center;">
+                <div style="font-size:28px;font-weight:700;line-height:1.2;">0 / 17</div>
+                <div style="font-size:11px;opacity:.75;margin-top:2px;">ready flows activated</div>
+              </div>
+            </div>
+            <div class="pb-title" style="font-size:16px;">Activate your ready flows to recover up to 189 extra orders/week</div>
+            <div class="pb-desc" style="margin-bottom:12px;font-size:12px;">Based on your traffic: 3,000 visitors, 240 add-to-carts, and 15% average recovery rate from cart abandonment automations.</div>
+            <a href="#" class="pb-cta">&#9889; Activate Ready Flows &rarr;</a>
+          </div>
+        </div>
+
+        <div class="promo-dots">
+          <span class="active"></span>
+          <span></span>
+        </div>
+
+        <!-- Section header -->
+        <div class="rsa-header">
+          <h2>Recent store activity</h2>
+          <span class="rsa-date"><span>05 Mar 2026 - 11 Mar 2026</span> <span class="cal-icon">&#128197;</span></span>
+        </div>
+        <div class="rsa-desc">This is how the traffic and customer actions looked like.</div>
+
+        <!-- ── Row 1: Visitors / Product views / Added to cart ── -->
+        <div class="metric-grid">
+          <div class="metric-tile">
+            <div class="mt-label"><span class="mt-emoji">&#128099;</span> Visitors <span class="mt-help">?</span></div>
+            <div class="mt-value">3,000</div>
+          </div>
+          <div class="metric-tile">
+            <div class="mt-label"><span class="mt-emoji">&#128065;</span> Product views <span class="mt-help">?</span></div>
+            <div class="mt-value">1,500</div>
+          </div>
+          <div class="metric-tile">
+            <div class="mt-label"><span class="mt-emoji">&#128722;</span> Added to cart <span class="mt-help">?</span></div>
+            <div class="mt-value">240</div>
+          </div>
+        </div>
+
+        <!-- INSIGHT: Visitor drop-off -->
+        <div class="insight-card orange">
+          <span class="ic-icon">&#9888;&#65039;</span>
+          <div class="ic-body">
+            <div class="ic-text"><strong>50% drop-off</strong> &mdash; only half of visitors view a product</div>
+            <div class="ic-sub">Pop-ups can convert up to 12% of passing traffic into leads.</div>
+          </div>
+          <a href="#" class="ic-cta">Create Pop-up</a>
+        </div>
+
+        <!-- INSIGHT: Cart abandonment -->
+        <div class="insight-card red">
+          <span class="ic-icon">&#128722;</span>
+          <div class="ic-body">
+            <div class="ic-text"><strong>84% cart abandonment</strong> &mdash; 1,260 carts didn't convert</div>
+            <div class="ic-sub">Recover up to 15% with automated cart recovery emails.</div>
+          </div>
+          <a href="#" class="ic-cta">Recover Carts</a>
+        </div>
+
+        <!-- Funnel label -->
+        <div class="funnel-row">Visitors: <span class="fr-arrow">&lsaquo;</span></div>
+
+        <div class="rsa-divider"></div>
+
+        <!-- ── Row 2: Sent messages / Orders / Attributed ── -->
+        <div class="metric-grid" style="margin-top:12px;">
+          <div class="metric-tile">
+            <div class="mt-label"><span class="mt-emoji">&#128172;</span> Sent messages <span class="mt-help">?</span></div>
+            <div class="mt-value">360</div>
+          </div>
+          <div class="metric-tile">
+            <div class="mt-label"><span class="mt-emoji">&#128230;</span> Orders placed <span class="mt-help">?</span></div>
+            <div class="mt-value">90</div>
+          </div>
+          <div class="metric-tile">
+            <div class="mt-label"><span class="mt-emoji">&#128640;</span> Attributed to edrone <span class="mt-help">?</span></div>
+            <div class="mt-value">60</div>
+          </div>
+        </div>
+
+        <!-- INSIGHT: edrone attribution -->
+        <div class="insight-card green">
+          <span class="ic-icon">&#128640;</span>
+          <div class="ic-body">
+            <div class="ic-text"><strong>67% of orders</strong> driven by edrone automations</div>
+            <div class="ic-sub">30 orders came without automation. Activate more flows to capture them.</div>
+          </div>
+          <a href="#" class="ic-cta">Activate Flows</a>
+        </div>
+
+        <!-- INSIGHT: Message conversion -->
+        <div class="insight-card blue">
+          <span class="ic-icon">&#128172;</span>
+          <div class="ic-body">
+            <div class="ic-text"><strong>25% message-to-order</strong> conversion rate</div>
+            <div class="ic-sub">A/B test subject lines to push above 30%.</div>
+          </div>
+          <a href="#" class="ic-cta">Run A/B Test</a>
+        </div>
+
+        <div class="rsa-divider"></div>
+
+        <!-- ── Row 3: New subscribers ───────────────── -->
+        <div class="metric-grid" style="margin-top:12px;">
+          <div class="metric-tile">
+            <div class="mt-label"><span class="mt-emoji">&#128231;</span> New subscribers <span class="mt-help">?</span></div>
+            <div class="mt-value">120</div>
+          </div>
+          <div class="metric-tile" style="background:transparent;border-color:transparent;"></div>
+          <div class="metric-tile" style="background:transparent;border-color:transparent;"></div>
+        </div>
+
+        <!-- INSIGHT: Welcome series -->
+        <div class="insight-card purple">
+          <span class="ic-icon">&#128140;</span>
+          <div class="ic-body">
+            <div class="ic-text"><strong>120 new subscribers</strong> waiting for their first purchase</div>
+            <div class="ic-sub">Welcome series converts 8-12% of new subscribers into buyers.</div>
+          </div>
+          <a href="#" class="ic-cta">Launch Welcome Series</a>
+        </div>
+
+        <!-- INSIGHT: Low subscription rate -->
+        <div class="insight-card yellow">
+          <span class="ic-icon">&#128200;</span>
+          <div class="ic-body">
+            <div class="ic-text">Only <strong>4% of visitors</strong> subscribed this week</div>
+            <div class="ic-sub">Spin-to-win wheels boost subscription rate 3-5x.</div>
+          </div>
+          <a href="#" class="ic-cta">Add Lucky Wheel</a>
+        </div>
+
+        <!-- Footer CTA -->
+        <div class="rsa-footer">
+          <a href="#" class="rf-cta">&#9889; Activate All Ready Flows (0 / 17 active)</a>
+          <div class="rf-stat">edrone drove <strong>60 orders this week</strong> &mdash; activate more to grow faster</div>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
