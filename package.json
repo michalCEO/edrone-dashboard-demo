@@ -1,0 +1,7 @@
+{
+  "name": "reviews-copy-mockups",
+  "private": true,
+  "scripts": {
+    "start": "npx serve -s . -l ${PORT:-3000}"
+  }
+}
