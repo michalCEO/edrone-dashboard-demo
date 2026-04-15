@@ -3,782 +3,520 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>edrone - Live events</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<title>Edrone Reviews — Copy Rewrite Mockups</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Roboto', sans-serif;
-    background: #fff;
-    color: rgba(0,0,0,.87);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    font-size: 14px;
-  }
-  .app { display: flex; min-height: 100vh; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 40px 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .subtitle { color: #666; font-size: 16px; margin-bottom: 48px; }
 
-  /* ── Sidebar ───────────────────────────────────── */
-  .sidebar {
-    width: 200px;
-    background: #fff;
-    border-right: 1px solid #e5e5e5;
-    padding: 0;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .sidebar-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-  }
-  .sidebar-top .logo {
-    font-size: 18px;
-    font-weight: 500;
-    font-style: italic;
-    color: #222;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .sidebar-top .logo .hamburger { font-style: normal; font-size: 20px; cursor: pointer; }
-  .sidebar-top .pin { font-size: 16px; color: #999; cursor: pointer; }
-  .sidebar nav { display: flex; flex-direction: column; }
-  .sidebar nav a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
-    font-size: 14px;
-    font-weight: 400;
-    color: rgba(0,0,0,.7);
-    text-decoration: none;
-    transition: background .1s;
-    position: relative;
-  }
-  .sidebar nav a:hover { background: #f9f9f4; }
-  .sidebar nav a.active {
-    background: #fef9c3;
-    font-weight: 500;
-    color: rgba(0,0,0,.87);
-  }
-  .sidebar nav a .nav-icon { width: 20px; font-size: 16px; text-align: center; flex-shrink: 0; }
-  .sidebar nav a .nav-badge {
-    margin-left: auto;
-    background: #3b82f6;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 1px 8px;
-    border-radius: 100px;
-    min-width: 24px;
-    text-align: center;
-  }
-  .sidebar nav a .nav-arrow { margin-left: auto; font-size: 12px; color: #aaa; }
-  .sidebar nav a .nav-fire { margin-left: auto; font-size: 14px; }
-  .sidebar nav .sub-item { padding-left: 46px; font-size: 13px; color: rgba(0,0,0,.55); }
-  .sidebar nav .sub-item .sub-count { margin-left: auto; font-size: 12px; color: #aaa; }
-  .sidebar-footer {
-    margin-top: auto;
-    padding: 16px;
-    border-top: 1px solid #e5e5e5;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .sidebar-footer .avatar-circle {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: #e5e5e5;
-    display: grid; place-items: center;
-    font-size: 18px; color: #999;
-  }
-  .sidebar-footer .user-info { flex: 1; }
-  .sidebar-footer .user-name { font-size: 13px; font-weight: 500; }
-  .sidebar-footer .user-email { font-size: 12px; color: rgba(0,0,0,.45); }
-  .sidebar-footer .user-toggle { font-size: 12px; color: #aaa; cursor: pointer; }
-  .lang-select {
-    margin: 0 16px 16px;
-    padding: 8px 12px;
-    border: 1px solid #e5e5e5;
-    border-radius: 4px;
-    font-size: 13px;
-    background: #fff;
-    color: rgba(0,0,0,.7);
-    width: calc(100% - 32px);
-  }
+  .screen { margin-bottom: 64px; border: 1px solid #e0e0e0; border-radius: 16px; background: #fff; overflow: hidden; }
+  .screen-header { padding: 24px 32px; background: #fafafa; border-bottom: 1px solid #e0e0e0; }
+  .screen-header h2 { font-size: 20px; font-weight: 600; }
+  .screen-header p { color: #666; font-size: 14px; margin-top: 4px; }
 
-  /* ── Main ──────────────────────────────────────── */
-  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+  .comparison { display: grid; grid-template-columns: 1fr 1fr; }
+  .side { padding: 32px; }
+  .side-before { background: #fff5f5; border-right: 1px solid #e0e0e0; }
+  .side-after { background: #f0fdf4; }
+  .side-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; display: inline-block; padding: 4px 10px; border-radius: 4px; }
+  .side-before .side-label { background: #fee2e2; color: #991b1b; }
+  .side-after .side-label { background: #dcfce7; color: #166534; }
 
-  /* Topbar */
-  .topbar {
-    height: 48px;
-    background: #fff;
-    border-bottom: 1px solid #e5e5e5;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    gap: 16px;
-    flex-shrink: 0;
-  }
-  .topbar .search {
-    display: flex; align-items: center; gap: 8px;
-    color: rgba(0,0,0,.4); font-size: 14px;
-  }
-  .topbar .search-icon { font-size: 16px; }
-  .topbar .add-user { font-size: 18px; color: rgba(0,0,0,.5); margin-left: 12px; cursor: pointer; }
-  .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
-  .topbar-right .tb-icon {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    display: grid; place-items: center;
-    font-size: 18px;
-    cursor: pointer;
-    position: relative;
-    color: rgba(0,0,0,.6);
-  }
-  .topbar-right .tb-icon.sms { background: #222; color: #fff; font-size: 11px; font-weight: 700; }
-  .topbar-right .tb-icon.wa { background: #25d366; color: #fff; font-size: 16px; }
-  .topbar-right .tb-icon .tb-badge {
-    position: absolute; top: 0; right: 0;
-    background: #ef4444; color: #fff;
-    font-size: 10px; font-weight: 700;
-    min-width: 16px; height: 16px;
-    border-radius: 100px; display: grid; place-items: center;
-    padding: 0 4px;
-  }
+  /* Mockup components */
+  .mock-modal { background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 28px 32px; max-width: 520px; margin: 0 auto; }
+  .mock-modal h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+  .mock-modal .desc { font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 20px; }
+  .mock-bullet { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
+  .mock-bullet .icon { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; margin-top: 2px; }
+  .mock-bullet .icon.green { background: #dcfce7; color: #166534; }
+  .mock-bullet .icon.purple { background: #f3e8ff; color: #6b21a8; }
+  .mock-bullet .icon.yellow { background: #fef9c3; color: #854d0e; }
+  .mock-bullet-content strong { display: block; font-size: 14px; margin-bottom: 2px; }
+  .mock-bullet-content span { font-size: 13px; color: #666; line-height: 1.5; }
+  .mock-ctas { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; }
+  .mock-btn { padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; border: none; cursor: pointer; }
+  .mock-btn-secondary { background: transparent; color: #666; }
+  .mock-btn-primary { background: #1a1a1a; color: #fff; }
+  .mock-btn-primary.yellow { background: #facc15; color: #1a1a1a; }
+  .mock-btn-primary.green { background: #16a34a; color: #fff; }
 
-  /* Content split */
-  .content { display: flex; flex: 1; overflow: hidden; }
+  /* Banner mockup */
+  .mock-banner { background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 16px 20px; max-width: 900px; margin: 0 auto; }
+  .mock-banner.red { background: #fef2f2; border-color: #fecaca; }
+  .mock-banner.green-light { background: #f0fdf4; border-color: #bbf7d0; }
+  .mock-banner h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .mock-banner p { font-size: 13px; color: #555; line-height: 1.5; }
+  .mock-banner .banner-ctas { display: flex; gap: 8px; margin-top: 12px; }
+  .mock-banner .banner-btn { padding: 6px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; border: 1px solid #e5e7eb; background: #fff; cursor: pointer; }
 
-  /* ── Left column: live events ──────────────────── */
-  .left-col {
-    flex: 1;
-    padding: 24px;
-    overflow-y: auto;
-    min-width: 0;
-    background: #fff;
-  }
-  .page-title-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
-  .page-title-icon { font-size: 28px; color: rgba(0,0,0,.3); }
-  .page-title {
-    font-size: 24px;
-    font-weight: 500;
-    color: #222;
-    line-height: 1.3;
-  }
-  .page-subtitle { font-size: 14px; color: rgba(0,0,0,.6); margin-bottom: 20px; }
+  .mock-status { margin-top: 16px; display: flex; gap: 16px; max-width: 900px; margin: 16px auto 0; }
+  .mock-status-chip { font-size: 12px; color: #666; background: #f5f5f5; padding: 6px 12px; border-radius: 16px; border: 1px solid #e5e7eb; }
 
-  /* Newsletter promo */
-  .newsletter-promo {
-    background: #f3f0ff;
-    border: 1px solid #e0d5ff;
-    border-left: 4px solid #7c3aed;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 24px;
-  }
-  .np-tag {
-    display: inline-flex; align-items: center; gap: 4px;
-    background: #d1fae5; color: #059669;
-    font-size: 12px; font-weight: 500;
-    padding: 3px 10px; border-radius: 100px;
-    margin-bottom: 10px;
-  }
-  .np-row { display: flex; align-items: center; gap: 16px; }
-  .np-body { flex: 1; }
-  .np-title { font-size: 15px; font-weight: 500; color: #222; }
-  .np-desc { font-size: 13px; color: rgba(0,0,0,.55); margin-top: 2px; }
-  .np-cta {
-    padding: 8px 16px;
-    border: 1px solid #d4d4d4;
-    border-radius: 4px;
-    background: #fff;
-    font-size: 13px; font-weight: 500;
-    cursor: pointer; white-space: nowrap;
-    text-decoration: none; color: #222;
-  }
+  /* Store vs Product picker */
+  .mock-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 560px; margin: 0 auto; }
+  .mock-pick-card { border: 2px solid #e5e7eb; border-radius: 12px; padding: 20px; cursor: pointer; transition: border-color 0.2s; }
+  .mock-pick-card:hover { border-color: #facc15; }
+  .mock-pick-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .mock-pick-card .pick-desc { font-size: 13px; color: #555; line-height: 1.5; margin-bottom: 12px; }
+  .mock-pick-card .pick-bullet { font-size: 12px; color: #777; line-height: 1.5; margin-bottom: 6px; padding-left: 12px; border-left: 2px solid #e5e7eb; }
+  .mock-pick-card .pick-quote { font-style: italic; color: #444; font-size: 13px; margin-bottom: 8px; }
+  .mock-pick-card .pick-bestfor { font-size: 12px; color: #888; margin-top: 8px; }
 
-  /* Event cards */
-  .event-card {
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin-bottom: 12px;
-    background: #fff;
-  }
-  .ec-top { display: flex; align-items: center; gap: 10px; }
-  .ec-icon { font-size: 20px; color: rgba(0,0,0,.4); }
-  .ec-action { font-size: 15px; font-weight: 500; }
-  .ec-action span { font-weight: 400; color: rgba(0,0,0,.55); }
-  .ec-tags { display: flex; gap: 6px; margin-left: 8px; }
-  .ec-tag {
-    font-size: 12px; padding: 2px 10px;
-    border-radius: 100px; border: 1px solid #e5e5e5;
-    background: #fff; color: rgba(0,0,0,.6);
-  }
-  .ec-time { margin-left: auto; font-size: 13px; color: rgba(0,0,0,.4); white-space: nowrap; }
-  .ec-badges { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-  .ec-badge {
-    font-size: 12px; padding: 3px 10px;
-    border-radius: 4px;
-    background: #f0f0ec; color: rgba(0,0,0,.6);
-  }
-  .ec-badge.green { background: #d1fae5; color: #059669; }
-  .ec-product-grid { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
-  .ec-product { display: flex; gap: 10px; align-items: center; }
-  .ec-product img { width: 60px; height: 60px; object-fit: contain; border: 1px solid #e5e5e5; border-radius: 4px; background: #fafafa; }
-  .ec-product-info .ec-pname { font-size: 13px; font-weight: 500; }
-  .ec-product-info .ec-pprice { font-size: 12px; color: rgba(0,0,0,.5); }
+  /* Billing sidebar */
+  .mock-sidebar { background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 28px 24px; max-width: 380px; margin: 0 auto; }
+  .mock-sidebar h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .mock-sidebar .sidebar-sub { font-size: 13px; color: #666; margin-bottom: 16px; }
+  .mock-stat-box { background: #1a1a1a; color: #fff; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
+  .mock-stat-box .stat-num { font-size: 20px; font-weight: 700; color: #4ade80; }
+  .mock-stat-box .stat-desc { font-size: 12px; color: #ccc; margin-top: 2px; }
+  .mock-section-header { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin: 20px 0 12px; }
+  .mock-feature { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
+  .mock-feature .feat-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .mock-feature .feat-title { font-size: 13px; font-weight: 600; }
+  .mock-feature .feat-desc { font-size: 12px; color: #777; margin-top: 1px; line-height: 1.4; }
 
+  .mock-pricing-steps { display: flex; gap: 4px; margin: 20px 0; }
+  .mock-step { flex: 1; text-align: center; padding: 12px 8px; background: #fafafa; border-radius: 8px; }
+  .mock-step .step-num { width: 24px; height: 24px; border-radius: 50%; background: #16a34a; color: #fff; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+  .mock-step .step-label { font-size: 11px; color: #888; display: block; }
+  .mock-step .step-price { font-size: 14px; font-weight: 700; color: #16a34a; }
+  .mock-step .step-note { font-size: 10px; color: #999; }
 
-  /* ═══════════════════════════════════════════════════
-     RIGHT COLUMN — RECENT STORE ACTIVITY
-     Exact clone of edrone layout + new CTA insights
-     ═══════════════════════════════════════════════════ */
-  .right-col {
-    width: 560px;
-    flex-shrink: 0;
-    border-left: 1px solid #e5e5e5;
-    background: #fff;
-    overflow-y: auto;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  /* ROI box */
+  .mock-roi { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 16px; margin: 16px 0; text-align: center; }
+  .mock-roi .roi-cost { font-size: 13px; color: #666; }
+  .mock-roi .roi-revenue { font-size: 18px; font-weight: 700; color: #16a34a; }
+  .mock-roi .roi-multiplier { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-top: 4px; }
+  .mock-value-line { font-size: 13px; color: #555; text-align: center; margin: 12px 0; display: flex; align-items: center; gap: 6px; justify-content: center; }
+  .mock-value-line .check { color: #16a34a; }
 
-  /* Promo banner */
-  .promo-banner {
-    background: linear-gradient(135deg, #a855f7 0%, #9333ea 60%, #7c3aed 100%);
-    border-radius: 12px;
-    padding: 24px;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 24px;
-  }
-  .promo-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 20% 80%, rgba(255,255,255,.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,.05) 0%, transparent 40%);
-  }
-  .promo-banner .pb-content { position: relative; z-index: 1; }
-  .promo-banner .pb-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-  .promo-banner .pb-desc { font-size: 13px; opacity: .85; margin-bottom: 16px; line-height: 1.5; }
-  .promo-banner .pb-cta {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: #fef08a; color: #222;
-    font-size: 14px; font-weight: 500;
-    padding: 8px 16px; border-radius: 4px;
-    border: none; cursor: pointer; text-decoration: none;
-  }
-  .promo-banner .pb-wheel {
-    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
-    width: 140px; height: 140px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,.15);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; color: #222; text-align: center;
-    padding: 12px;
-    z-index: 1;
-  }
-  /* Dots indicator */
-  .promo-dots { text-align: center; margin-bottom: 20px; }
-  .promo-dots span {
-    display: inline-block; width: 8px; height: 8px;
-    border-radius: 50%; background: #d4d4d4; margin: 0 3px;
-  }
-  .promo-dots span.active { background: #999; }
+  .mock-badges { display: flex; gap: 12px; justify-content: center; margin-top: 12px; }
+  .mock-badge { font-size: 11px; color: #666; background: #f5f5f5; padding: 4px 10px; border-radius: 4px; }
 
-  /* Section header */
-  .rsa-header {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    margin-bottom: 4px;
-  }
-  .rsa-header h2 {
-    font-size: 24px; font-weight: 500; color: #222; line-height: 1.3;
-  }
-  .rsa-date {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 12px;
-    border: 1px solid #e5e5e5; border-radius: 4px;
-    font-size: 13px; color: rgba(0,0,0,.7);
-    background: #fff; cursor: pointer; white-space: nowrap;
-  }
-  .rsa-date .cal-icon { font-size: 16px; }
-  .rsa-desc {
-    font-size: 14px; color: rgba(0,0,0,.55);
-    margin-bottom: 16px;
-  }
+  .changes-list { margin-top: 20px; padding: 16px; background: #fffbeb; border-radius: 8px; border: 1px solid #fde68a; }
+  .changes-list h4 { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #92400e; }
+  .changes-list ul { font-size: 13px; color: #78350f; padding-left: 20px; line-height: 1.8; }
 
-  /* Metric grid — exact edrone style */
-  .metric-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  .metric-grid.cols-1 { grid-template-columns: 1fr 1fr 1fr; }
-  .metric-tile {
-    background: #fafafa;
-    border: 1px solid #fafafa;
-    border-radius: 4px;
-    padding: 12px;
-  }
-  .metric-tile:hover { border-color: #e5e5e5; }
-  .mt-label {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 14px; color: rgba(0,0,0,.65);
-    font-weight: 400; margin-bottom: 6px;
-  }
-  .mt-label .mt-emoji { font-size: 14px; }
-  .mt-label .mt-help {
-    width: 16px; height: 16px;
-    border-radius: 50%; border: 1px solid #d4d4d4;
-    display: inline-grid; place-items: center;
-    font-size: 10px; color: #aaa;
-    cursor: help; margin-left: 2px;
-    background: #fff;
-  }
-  .mt-value {
-    font-size: 32px; font-weight: 500;
-    color: #222; line-height: 1.2;
-  }
-
-  /* Funnel stage label */
-  .funnel-row {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 16px; font-weight: 400;
-    color: rgba(0,0,0,.8);
-    margin: 16px 0 12px;
-  }
-  .funnel-row .fr-arrow { font-size: 14px; color: #aaa; cursor: pointer; }
-
-  /* ── NEW: Insight CTA Cards ────────────────────── */
-  .insight-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-  .insight-card .ic-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-  .insight-card .ic-body { flex: 1; min-width: 0; }
-  .insight-card .ic-text { font-weight: 400; color: #222; }
-  .insight-card .ic-text strong { font-weight: 700; }
-  .insight-card .ic-sub { font-size: 12px; color: rgba(0,0,0,.5); margin-top: 3px; }
-  .insight-card .ic-cta {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 13px; font-weight: 500;
-    padding: 7px 14px; border-radius: 4px;
-    border: none; cursor: pointer;
-    white-space: nowrap; flex-shrink: 0;
-    align-self: center; text-decoration: none;
-    transition: filter .15s;
-  }
-  .insight-card .ic-cta:hover { filter: brightness(.9); }
-
-  /* Variants matching edrone palette */
-  .insight-card.red    { background: #fef2f2; }
-  .insight-card.red .ic-cta { background: #ef4444; color: #fff; }
-
-  .insight-card.orange { background: #fff7ed; }
-  .insight-card.orange .ic-cta { background: #ea580c; color: #fff; }
-
-  .insight-card.green  { background: #f0fdf4; }
-  .insight-card.green .ic-cta { background: #16a34a; color: #fff; }
-
-  .insight-card.blue   { background: #eff6ff; }
-  .insight-card.blue .ic-cta { background: #2563eb; color: #fff; }
-
-  .insight-card.purple { background: #f3f0ff; }
-  .insight-card.purple .ic-cta { background: #7c3aed; color: #fff; }
-
-  .insight-card.yellow { background: #fefce8; }
-  .insight-card.yellow .ic-cta { background: #ca8a04; color: #fff; }
-
-  /* Divider */
-  .rsa-divider { height: 1px; background: #e5e5e5; margin: 12px 0 4px; }
-
-  /* Footer CTA */
-  .rsa-footer { margin-top: 16px; }
-  .rsa-footer .rf-cta {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; padding: 13px;
-    background: #7c3aed; color: #fff;
-    font-size: 15px; font-weight: 500;
-    border: none; border-radius: 8px;
-    cursor: pointer; text-decoration: none;
-    transition: background .15s;
-  }
-  .rsa-footer .rf-cta:hover { background: #6d28d9; }
-  .rsa-footer .rf-stat {
-    text-align: center; font-size: 12px;
-    color: rgba(0,0,0,.45); margin-top: 8px;
-  }
-  .rsa-footer .rf-stat strong { color: #16a34a; font-weight: 500; }
-
-  /* ── Responsive ────────────────────────────────── */
-  @media (max-width: 1200px) { .right-col { width: 440px; } }
-  @media (max-width: 900px) {
-    .sidebar { display: none; }
-    .content { flex-direction: column; }
-    .right-col { width: 100%; border-left: none; border-top: 1px solid #e5e5e5; }
-  }
+  .annotation { font-size: 11px; background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 3px; font-weight: 600; display: inline-block; margin-bottom: 4px; }
 </style>
 </head>
 <body>
+<div class="container">
+  <h1>Edrone Reviews — Copy Rewrite Mockups</h1>
+  <p class="subtitle">5 UI screens audited and rewritten. Before/After side by side.</p>
 
-<div class="app">
-  <!-- ── Sidebar ─────────────────────────────────── -->
-  <aside class="sidebar">
-    <div class="sidebar-top">
-      <div class="logo"><span class="hamburger">&#9776;</span> <i>edrone</i></div>
-      <span class="pin">&#128204;</span>
+  <!-- SCREEN 1 -->
+  <div class="screen">
+    <div class="screen-header">
+      <h2>Screen 1: "Best Opinions" Promotion Modal</h2>
+      <p>Appears on Ready Flows page to promote the reviews widget for emails</p>
     </div>
-    <nav>
-      <a href="#" class="active">
-        <span class="nav-icon">&#11036;</span> Live events
-      </a>
-      <a href="#">
-        <span class="nav-icon">&#128233;</span> Inbox
-        <span class="nav-badge">133</span>
-      </a>
-      <a href="#">
-        <span class="nav-icon">&#9993;</span> Newsletter
-        <span class="nav-arrow">&#9662;</span>
-      </a>
-      <a href="#">
-        <span class="nav-icon">&#8618;</span> Automations
-        <span class="nav-arrow">&#9662;</span>
-      </a>
-      <a href="#" class="sub-item">Ready flows <span class="sub-count">0 / 17</span></a>
-      <a href="#" class="sub-item">Custom flows <span class="sub-count">1 / 3</span></a>
-      <a href="#">
-        <span class="nav-icon">&#9645;</span> Onsites
-        <span class="nav-fire">&#128293;</span>
-        <span class="nav-arrow">&#9662;</span>
-      </a>
-      <a href="#">
-        <span class="nav-icon">&#9734;</span> Reviews
-        <span class="nav-arrow">&#9662;</span>
-      </a>
-      <a href="#">
-        <span class="nav-icon">&#128101;</span> Customers
-        <span class="nav-arrow">&#9662;</span>
-      </a>
-      <a href="#">
-        <span class="nav-icon">&#128295;</span> Resources
-        <span class="nav-arrow">&#9662;</span>
-      </a>
-      <a href="#">
-        <span class="nav-icon">&#128200;</span> Reports
-        <span class="nav-fire">&#128293;</span>
-        <span class="nav-arrow">&#9662;</span>
-      </a>
-      <a href="#">
-        <span class="nav-icon">&#10024;</span> AI Banner Generator
-      </a>
-    </nav>
-    <select class="lang-select"><option>English</option></select>
-    <div class="sidebar-footer">
-      <div class="avatar-circle">&#128100;</div>
-      <div class="user-info">
-        <div class="user-name">Demo Agent</div>
-        <div class="user-email">demo.en@edrone.me</div>
+    <div class="comparison">
+      <div class="side side-before">
+        <span class="side-label">Current</span>
+        <div class="mock-modal">
+          <h3>Use Best Opinions in emails</h3>
+          <p class="desc">Best Opinions is an Unlayer widget. It lets you add both product and store reviews directly to the email, and the Reviews filter shows the recommended automations where you can use it, such as Viewed products and Recover abandoned carts.</p>
+          <div class="mock-bullet">
+            <div class="icon green">&#10003;</div>
+            <div class="mock-bullet-content">
+              <strong>Add reviews to the email</strong>
+              <span>Product and store reviews are visible right inside the message.</span>
+            </div>
+          </div>
+          <div class="mock-bullet">
+            <div class="icon purple">&#8593;</div>
+            <div class="mock-bullet-content">
+              <strong>Use it in different Ready Flows</strong>
+              <span>You can add the same widget to flows like Viewed products and Recover abandoned carts.</span>
+            </div>
+          </div>
+          <div class="mock-bullet">
+            <div class="icon yellow">&#9733;</div>
+            <div class="mock-bullet-content">
+              <strong>See where it fits best</strong>
+              <span>The Reviews filter shows the Ready Flows related to the Best Opinions widget.</span>
+            </div>
+          </div>
+          <div class="mock-ctas">
+            <button class="mock-btn mock-btn-secondary">Not now</button>
+            <button class="mock-btn mock-btn-primary">Turn on Reviews filter</button>
+          </div>
+        </div>
       </div>
-      <span class="user-toggle">&#9662;</span>
-    </div>
-  </aside>
-
-  <!-- ── Main ────────────────────────────────────── -->
-  <div class="main">
-    <!-- Topbar -->
-    <header class="topbar">
-      <div class="search">
-        <span class="search-icon">&#128269;</span>
-        Search for customers and products
+      <div class="side side-after">
+        <span class="side-label">Rewrite</span>
+        <div class="mock-modal">
+          <h3>Add social proof to your emails</h3>
+          <p class="desc">Your customers' reviews — star ratings, real quotes — right inside the emails that recover lost sales. One click to turn it on.</p>
+          <div class="mock-bullet">
+            <div class="icon green">&#10003;</div>
+            <div class="mock-bullet-content">
+              <strong>Reviews inside the email</strong>
+              <span>Shoppers see real ratings without leaving the message. Trust builds before the click.</span>
+            </div>
+          </div>
+          <div class="mock-bullet">
+            <div class="icon purple">&#8593;</div>
+            <div class="mock-bullet-content">
+              <strong>Works across your automations</strong>
+              <span>Add it to Viewed products, Abandoned carts, or any automation that wins back a hesitant shopper.</span>
+            </div>
+          </div>
+          <div class="mock-bullet">
+            <div class="icon yellow">&#9733;</div>
+            <div class="mock-bullet-content">
+              <strong>We'll show you where it matters most</strong>
+              <span>Filtered view of the automations where reviews drive the biggest lift.</span>
+            </div>
+          </div>
+          <div class="mock-ctas">
+            <button class="mock-btn mock-btn-secondary">Not now</button>
+            <button class="mock-btn mock-btn-primary">Show me where to add reviews</button>
+          </div>
+        </div>
+        <div class="changes-list">
+          <h4>Key changes</h4>
+          <ul>
+            <li>Title: internal name "Best Opinions" &rarr; outcome "social proof"</li>
+            <li>Description: removed "Unlayer widget" jargon, leads with value</li>
+            <li>Bullets: feature descriptions &rarr; merchant outcomes</li>
+            <li>CTA: "Turn on Reviews filter" &rarr; "Show me where to add reviews"</li>
+          </ul>
+        </div>
       </div>
-      <span class="add-user">&#128101;+</span>
-      <div class="topbar-right">
-        <div class="tb-icon sms">SMS</div>
-        <div class="tb-icon wa">&#9742;</div>
-        <div class="tb-icon">&#128276;<span class="tb-badge">2</span></div>
-        <div class="tb-icon">&#128172;<span class="tb-badge">11</span></div>
-        <div class="tb-icon">?</div>
-        <div class="tb-icon">&#9432;</div>
-      </div>
-    </header>
-
-    <div class="content">
-      <!-- ── Left: Live Events ───────────────────── -->
-      <section class="left-col">
-        <div class="page-title-row">
-          <span class="page-title-icon">&#11036;</span>
-          <div>
-            <div class="page-title">First steps done? Great! Now keep going &#128170;</div>
-          </div>
-        </div>
-        <p class="page-subtitle">See how customers interact across your website and messages while Marketing Automation reacts in real time.</p>
-
-        <!-- Newsletter promo -->
-        <div class="newsletter-promo">
-          <div class="np-tag">&#128994; Now live</div>
-          <div class="np-row">
-            <div class="np-body">
-              <div class="np-title">Check out newsletters prepared for you</div>
-              <div class="np-desc">A new section with ready-to-send emails &mdash; fresh ideas waiting to inspire your next campaign.</div>
-            </div>
-            <a href="#" class="np-cta">See newsletters &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Event: Automation started -->
-        <div class="event-card">
-          <div class="ec-top">
-            <span class="ec-icon">&#9655;</span>
-            <span class="ec-action">Automation started <span>- Birthday</span></span>
-            <div class="ec-tags"><span class="ec-tag">Olivia</span></div>
-            <span class="ec-time">2 hours ago</span>
-          </div>
-        </div>
-
-        <div class="event-card">
-          <div class="ec-top">
-            <span class="ec-icon">&#9655;</span>
-            <span class="ec-action">Automation started <span>- Birthday</span></span>
-            <div class="ec-tags"><span class="ec-tag">Tom</span></div>
-            <span class="ec-time">2 hours ago</span>
-          </div>
-        </div>
-
-        <!-- Event: Product viewed -->
-        <div class="event-card">
-          <div class="ec-top">
-            <span class="ec-icon" style="color:#16a34a;">&#9673;</span>
-            <span class="ec-action">Product viewed</span>
-            <div class="ec-tags"><span class="ec-tag">John</span></div>
-            <span class="ec-time">2 hours ago</span>
-          </div>
-          <div class="ec-badges">
-            <span class="ec-badge green">&#9655; Automations started</span>
-            <span class="ec-badge">Viewed products</span>
-            <span class="ec-badge">Recommendations</span>
-            <span class="ec-badge">Back in stock</span>
-          </div>
-          <div class="ec-product-grid">
-            <div class="ec-product">
-              <div style="width:60px;height:60px;background:#f5f5f5;border:1px solid #e5e5e5;border-radius:4px;display:grid;place-items:center;font-size:24px;">&#128241;</div>
-              <div class="ec-product-info">
-                <div class="ec-pname">Apple iPhone 15 Pro 128GB</div>
-                <div class="ec-pprice">R$999.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Event: Message sent -->
-        <div class="event-card">
-          <div class="ec-top">
-            <span class="ec-icon">&#128172;</span>
-            <span class="ec-action">Message sent <span>- Restore customers</span></span>
-            <div class="ec-tags">
-              <span class="ec-tag">Preview</span>
-              <span class="ec-tag">Olivia</span>
-            </div>
-            <span class="ec-time">2 hours ago</span>
-          </div>
-        </div>
-
-        <!-- Event: Order -->
-        <div class="event-card">
-          <div class="ec-top">
-            <span class="ec-icon" style="color:#16a34a;">&#127881;</span>
-            <span class="ec-action">Order</span>
-            <div class="ec-tags"><span class="ec-tag">Peter</span></div>
-            <span class="ec-time">2 hours ago</span>
-          </div>
-          <div class="ec-badges">
-            <span class="ec-badge green">&#9655; Automations started</span>
-            <span class="ec-badge">Loyalty program</span>
-            <span class="ec-badge">After sale</span>
-            <span class="ec-badge">Ask for review</span>
-            <span class="ec-badge">+1 more</span>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- ═══════════════════════════════════════════
-           RIGHT: RECENT STORE ACTIVITY
-           Exact edrone tile layout + new insight CTAs
-           ═══════════════════════════════════════════ -->
-      <aside class="right-col">
-
-        <!-- Value banner: data-driven, shows what merchant is leaving on the table -->
-        <div class="promo-banner" style="padding-bottom:20px;">
-          <div class="pb-content" style="max-width:100%;">
-            <div style="display:flex;gap:16px;margin-bottom:16px;">
-              <div style="flex:1;background:rgba(255,255,255,.15);border-radius:8px;padding:12px 14px;text-align:center;">
-                <div style="font-size:28px;font-weight:700;line-height:1.2;">2,760</div>
-                <div style="font-size:11px;opacity:.75;margin-top:2px;">visitors left without buying</div>
-              </div>
-              <div style="flex:1;background:rgba(255,255,255,.15);border-radius:8px;padding:12px 14px;text-align:center;">
-                <div style="font-size:28px;font-weight:700;line-height:1.2;">1,260</div>
-                <div style="font-size:11px;opacity:.75;margin-top:2px;">carts abandoned this week</div>
-              </div>
-              <div style="flex:1;background:rgba(255,255,255,.15);border-radius:8px;padding:12px 14px;text-align:center;">
-                <div style="font-size:28px;font-weight:700;line-height:1.2;">0 / 17</div>
-                <div style="font-size:11px;opacity:.75;margin-top:2px;">ready flows activated</div>
-              </div>
-            </div>
-            <div class="pb-title" style="font-size:16px;">Activate your ready flows to recover up to 189 extra orders/week</div>
-            <div class="pb-desc" style="margin-bottom:12px;font-size:12px;">Based on your traffic: 3,000 visitors, 240 add-to-carts, and 15% average recovery rate from cart abandonment automations.</div>
-            <a href="#" class="pb-cta">&#9889; Activate Ready Flows &rarr;</a>
-          </div>
-        </div>
-
-        <div class="promo-dots">
-          <span class="active"></span>
-          <span></span>
-        </div>
-
-        <!-- Section header -->
-        <div class="rsa-header">
-          <h2>Recent store activity</h2>
-          <span class="rsa-date"><span>05 Mar 2026 - 11 Mar 2026</span> <span class="cal-icon">&#128197;</span></span>
-        </div>
-        <div class="rsa-desc">This is how the traffic and customer actions looked like.</div>
-
-        <!-- ── Row 1: Visitors / Product views / Added to cart ── -->
-        <div class="metric-grid">
-          <div class="metric-tile">
-            <div class="mt-label"><span class="mt-emoji">&#128099;</span> Visitors <span class="mt-help">?</span></div>
-            <div class="mt-value">3,000</div>
-          </div>
-          <div class="metric-tile">
-            <div class="mt-label"><span class="mt-emoji">&#128065;</span> Product views <span class="mt-help">?</span></div>
-            <div class="mt-value">1,500</div>
-          </div>
-          <div class="metric-tile">
-            <div class="mt-label"><span class="mt-emoji">&#128722;</span> Added to cart <span class="mt-help">?</span></div>
-            <div class="mt-value">240</div>
-          </div>
-        </div>
-
-        <!-- INSIGHT: Visitor drop-off -->
-        <div class="insight-card orange">
-          <span class="ic-icon">&#9888;&#65039;</span>
-          <div class="ic-body">
-            <div class="ic-text"><strong>50% drop-off</strong> &mdash; only half of visitors view a product</div>
-            <div class="ic-sub">Pop-ups can convert up to 12% of passing traffic into leads.</div>
-          </div>
-          <a href="#" class="ic-cta">Create Pop-up</a>
-        </div>
-
-        <!-- INSIGHT: Cart abandonment -->
-        <div class="insight-card red">
-          <span class="ic-icon">&#128722;</span>
-          <div class="ic-body">
-            <div class="ic-text"><strong>84% cart abandonment</strong> &mdash; 1,260 carts didn't convert</div>
-            <div class="ic-sub">Recover up to 15% with automated cart recovery emails.</div>
-          </div>
-          <a href="#" class="ic-cta">Recover Carts</a>
-        </div>
-
-        <!-- Funnel label -->
-        <div class="funnel-row">Visitors: <span class="fr-arrow">&lsaquo;</span></div>
-
-        <div class="rsa-divider"></div>
-
-        <!-- ── Row 2: Sent messages / Orders / Attributed ── -->
-        <div class="metric-grid" style="margin-top:12px;">
-          <div class="metric-tile">
-            <div class="mt-label"><span class="mt-emoji">&#128172;</span> Sent messages <span class="mt-help">?</span></div>
-            <div class="mt-value">360</div>
-          </div>
-          <div class="metric-tile">
-            <div class="mt-label"><span class="mt-emoji">&#128230;</span> Orders placed <span class="mt-help">?</span></div>
-            <div class="mt-value">90</div>
-          </div>
-          <div class="metric-tile">
-            <div class="mt-label"><span class="mt-emoji">&#128640;</span> Attributed to edrone <span class="mt-help">?</span></div>
-            <div class="mt-value">60</div>
-          </div>
-        </div>
-
-        <!-- INSIGHT: edrone attribution -->
-        <div class="insight-card green">
-          <span class="ic-icon">&#128640;</span>
-          <div class="ic-body">
-            <div class="ic-text"><strong>67% of orders</strong> driven by edrone automations</div>
-            <div class="ic-sub">30 orders came without automation. Activate more flows to capture them.</div>
-          </div>
-          <a href="#" class="ic-cta">Activate Flows</a>
-        </div>
-
-        <!-- INSIGHT: Message conversion -->
-        <div class="insight-card blue">
-          <span class="ic-icon">&#128172;</span>
-          <div class="ic-body">
-            <div class="ic-text"><strong>25% message-to-order</strong> conversion rate</div>
-            <div class="ic-sub">A/B test subject lines to push above 30%.</div>
-          </div>
-          <a href="#" class="ic-cta">Run A/B Test</a>
-        </div>
-
-        <div class="rsa-divider"></div>
-
-        <!-- ── Row 3: New subscribers ───────────────── -->
-        <div class="metric-grid" style="margin-top:12px;">
-          <div class="metric-tile">
-            <div class="mt-label"><span class="mt-emoji">&#128231;</span> New subscribers <span class="mt-help">?</span></div>
-            <div class="mt-value">120</div>
-          </div>
-          <div class="metric-tile" style="background:transparent;border-color:transparent;"></div>
-          <div class="metric-tile" style="background:transparent;border-color:transparent;"></div>
-        </div>
-
-        <!-- INSIGHT: Welcome series -->
-        <div class="insight-card purple">
-          <span class="ic-icon">&#128140;</span>
-          <div class="ic-body">
-            <div class="ic-text"><strong>120 new subscribers</strong> waiting for their first purchase</div>
-            <div class="ic-sub">Welcome series converts 8-12% of new subscribers into buyers.</div>
-          </div>
-          <a href="#" class="ic-cta">Launch Welcome Series</a>
-        </div>
-
-        <!-- INSIGHT: Low subscription rate -->
-        <div class="insight-card yellow">
-          <span class="ic-icon">&#128200;</span>
-          <div class="ic-body">
-            <div class="ic-text">Only <strong>4% of visitors</strong> subscribed this week</div>
-            <div class="ic-sub">Spin-to-win wheels boost subscription rate 3-5x.</div>
-          </div>
-          <a href="#" class="ic-cta">Add Lucky Wheel</a>
-        </div>
-
-        <!-- Footer CTA -->
-        <div class="rsa-footer">
-          <a href="#" class="rf-cta">&#9889; Activate All Ready Flows (0 / 17 active)</a>
-          <div class="rf-stat">edrone drove <strong>60 orders this week</strong> &mdash; activate more to grow faster</div>
-        </div>
-
-      </aside>
     </div>
   </div>
-</div>
 
+  <!-- SCREEN 2 -->
+  <div class="screen">
+    <div class="screen-header">
+      <h2>Screen 2: Reviews Filter Tab — Warning Banner</h2>
+      <p>Banner shown when reviews aren't active on any automation</p>
+    </div>
+    <div class="comparison">
+      <div class="side side-before">
+        <span class="side-label">Current</span>
+        <div class="mock-banner red">
+          <h4>&#9888; Reviews are not driving recovered revenue yet</h4>
+          <p>Start with Viewed products and Recover abandoned carts. These two flows put social proof in front of high-intent shoppers and help win back orders before demand cools down.</p>
+          <div class="banner-ctas">
+            <button class="banner-btn">Win back product viewers</button>
+            <button class="banner-btn">Recover abandoned carts</button>
+          </div>
+        </div>
+        <div class="mock-status">
+          <span class="mock-status-chip">Viewed products: still without review proof</span>
+          <span class="mock-status-chip">Recover abandoned carts: still without review proof</span>
+        </div>
+      </div>
+      <div class="side side-after">
+        <span class="side-label">Rewrite</span>
+        <div class="mock-banner green-light">
+          <h4>&#128640; Two automations away from review-powered revenue</h4>
+          <p>Viewed products and Abandoned carts reach shoppers who already showed interest. Add reviews to these emails — and give them the confidence to buy.</p>
+          <div class="banner-ctas">
+            <button class="banner-btn">Win back product viewers</button>
+            <button class="banner-btn">Recover abandoned carts</button>
+          </div>
+        </div>
+        <div class="mock-status">
+          <span class="mock-status-chip">Viewed products — add reviews to boost conversions</span>
+          <span class="mock-status-chip">Abandoned carts — add reviews to boost conversions</span>
+        </div>
+        <div class="changes-list">
+          <h4>Key changes</h4>
+          <ul>
+            <li>Banner tone: shame ("not driving revenue yet") &rarr; momentum ("two steps away")</li>
+            <li>Background: red/warning &rarr; green/encouraging</li>
+            <li>Status chips: "still without" (blame) &rarr; "add reviews to boost" (action)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div class="screen">
+    <div class="screen-header">
+      <h2>Screen 3: Store vs Product Reviews Picker</h2>
+      <p>Modal for choosing review type when adding the Best Opinions widget</p>
+    </div>
+    <div class="comparison">
+      <div class="side side-before">
+        <span class="side-label">Current</span>
+        <div class="mock-modal" style="max-width: 560px;">
+          <h3>What will help this shopper buy?</h3>
+          <p class="desc">Choose the reviews that fit the job best here: build trust in your store or bring the shopper back to a specific product.</p>
+          <div class="mock-picker">
+            <div class="mock-pick-card">
+              <h4>Store reviews</h4>
+              <p class="pick-desc">Best when you want to build trust in the store, the brand, and the whole shopping experience before the first purchase.</p>
+              <div class="pick-bullet">They show that buying from your store feels like a safe and proven choice.</div>
+              <div class="pick-bullet">They give first-time shoppers more reasons to trust your brand before they buy.</div>
+            </div>
+            <div class="mock-pick-card">
+              <h4>Product reviews</h4>
+              <p class="pick-desc">Best when you want to bring shoppers back to one specific product and help them make the final decision faster.</p>
+              <div class="pick-bullet">They bring the shopper back to the exact product they were already considering.</div>
+              <div class="pick-bullet">They help remove the last doubts and move the shopper closer to purchase.</div>
+            </div>
+          </div>
+          <div class="mock-ctas">
+            <button class="mock-btn mock-btn-secondary">Go back</button>
+            <button class="mock-btn mock-btn-primary">Use this type</button>
+          </div>
+        </div>
+      </div>
+      <div class="side side-after">
+        <span class="side-label">Rewrite</span>
+        <div class="mock-modal" style="max-width: 560px;">
+          <h3>What will help this shopper buy?</h3>
+          <p class="desc">Two kinds of proof. Pick the one that matches the moment.</p>
+          <div class="mock-picker">
+            <div class="mock-pick-card">
+              <h4>Store reviews</h4>
+              <p class="pick-desc"><strong>Build trust in your store</strong> — For first-time visitors who don't know you yet.</p>
+              <p class="pick-quote">"Is this store legit?" — Real reviews answer that before you have to.</p>
+              <p class="pick-bestfor">Best for: welcome emails, new subscriber flows, brand-building messages.</p>
+            </div>
+            <div class="mock-pick-card">
+              <h4>Product reviews</h4>
+              <p class="pick-desc"><strong>Remove doubt about the product</strong> — For shoppers who browsed but didn't buy.</p>
+              <p class="pick-quote">"Is this product worth it?" — Let other buyers answer for you.</p>
+              <p class="pick-bestfor">Best for: abandoned carts, viewed products, recommendation emails.</p>
+            </div>
+          </div>
+          <div class="mock-ctas">
+            <button class="mock-btn mock-btn-secondary">Go back</button>
+            <button class="mock-btn mock-btn-primary">Add to this email</button>
+          </div>
+        </div>
+        <div class="changes-list">
+          <h4>Key changes</h4>
+          <ul>
+            <li>Subtitle: compressed from 2 lines to punchy one-liner</li>
+            <li>Each card: frames around the shopper's inner question ("Is this store legit?")</li>
+            <li>Added "Best for" context so merchant picks confidently</li>
+            <li>CTA: "Use this type" (generic) &rarr; "Add to this email" (specific action)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4 -->
+  <div class="screen">
+    <div class="screen-header">
+      <h2>Screen 4: "Add Reviews to Your Plan" Sidebar</h2>
+      <p>Billing upsell panel for activating the paid Reviews feature</p>
+    </div>
+    <div class="comparison">
+      <div class="side side-before">
+        <span class="side-label">Current</span>
+        <div class="mock-sidebar">
+          <h3>Add Reviews to your plan</h3>
+          <p class="sidebar-sub">Collect authentic reviews that boost your store's conversion</p>
+          <div class="mock-stat-box">
+            <div class="stat-num">+12% conversion</div>
+            <div class="stat-desc">that's the average lift stores see with reviews</div>
+          </div>
+          <div class="mock-section-header">YOUR REVIEWS CAN'T DO THIS YET</div>
+          <div class="mock-feature">
+            <span class="feat-icon">&#128269;</span>
+            <div>
+              <div class="feat-title">Stars in Google</div>
+              <div class="feat-desc">Your products show star ratings in search results</div>
+            </div>
+          </div>
+          <div class="mock-feature">
+            <span class="feat-icon">&#128722;</span>
+            <div>
+              <div class="feat-title">Reviews in your store</div>
+              <div class="feat-desc">Publish ratings, review list & teaser where customers buy</div>
+            </div>
+          </div>
+          <div class="mock-feature">
+            <span class="feat-icon">&#9734;</span>
+            <div>
+              <div class="feat-title">All your reviews</div>
+              <div class="feat-desc">Read & respond to every review, not just the first 20</div>
+            </div>
+          </div>
+          <div class="mock-feature">
+            <span class="feat-icon">&#128279;</span>
+            <div>
+              <div class="feat-title">Your review page</div>
+              <div class="feat-desc">Public page at edrone.me/reviews/yourstore for sharing & SEO</div>
+            </div>
+          </div>
+          <div class="mock-pricing-steps">
+            <div class="mock-step">
+              <span class="step-num">1</span>
+              <span class="step-label">Today</span>
+              <span class="step-price">PLN 49.00</span>
+              <span class="step-note">Base fee only</span>
+            </div>
+            <div class="mock-step">
+              <span class="step-num">2</span>
+              <span class="step-label">Month 2</span>
+              <span class="step-price">~PLN 49.00</span>
+              <span class="step-note">Based on your volume</span>
+            </div>
+            <div class="mock-step">
+              <span class="step-num">3</span>
+              <span class="step-label">Ongoing</span>
+              <span class="step-price">Scales with you</span>
+              <span class="step-note">Pay more only as you grow</span>
+            </div>
+          </div>
+          <div class="mock-ctas" style="justify-content: space-between;">
+            <button class="mock-btn mock-btn-secondary">Close</button>
+            <button class="mock-btn mock-btn-primary green">Activate Reviews</button>
+          </div>
+        </div>
+      </div>
+      <div class="side side-after">
+        <span class="side-label">Rewrite</span>
+        <div class="mock-sidebar">
+          <h3>Add Reviews to your plan</h3>
+          <p class="sidebar-sub">Turn your customers' words into your best sales tool.</p>
+          <div class="mock-stat-box">
+            <div class="stat-num">+12% more conversions</div>
+            <div class="stat-desc">the average lift edrone stores see after activating Reviews</div>
+          </div>
+          <div class="mock-section-header">UNLOCK THE FULL POWER OF YOUR REVIEWS</div>
+          <div class="mock-feature">
+            <span class="feat-icon">&#128269;</span>
+            <div>
+              <div class="feat-title">Stars in Google</div>
+              <div class="feat-desc">Star ratings catch the eye in search results. Shoppers click what looks proven.</div>
+            </div>
+          </div>
+          <div class="mock-feature">
+            <span class="feat-icon">&#128722;</span>
+            <div>
+              <div class="feat-title">Reviews on your store</div>
+              <div class="feat-desc">Ratings and quotes build trust where customers decide to buy.</div>
+            </div>
+          </div>
+          <div class="mock-feature">
+            <span class="feat-icon">&#9734;</span>
+            <div>
+              <div class="feat-title">Every review, managed</div>
+              <div class="feat-desc">Read and respond to every review, not just the first 20.</div>
+            </div>
+          </div>
+          <div class="mock-feature">
+            <span class="feat-icon">&#128279;</span>
+            <div>
+              <div class="feat-title">Your review page</div>
+              <div class="feat-desc">A public page for SEO and sharing. Your reputation, your domain.</div>
+            </div>
+          </div>
+          <div class="mock-pricing-steps">
+            <div class="mock-step">
+              <span class="step-num">1</span>
+              <span class="step-label">Today</span>
+              <span class="step-price">PLN 49.00</span>
+              <span class="step-note">Base fee only</span>
+            </div>
+            <div class="mock-step">
+              <span class="step-num">2</span>
+              <span class="step-label">Month 2</span>
+              <span class="step-price">~PLN 49.00</span>
+              <span class="step-note">Based on your volume</span>
+            </div>
+            <div class="mock-step">
+              <span class="step-num">3</span>
+              <span class="step-label">Ongoing</span>
+              <span class="step-price">Scales with you</span>
+              <span class="step-note">Price stays fair as you grow</span>
+            </div>
+          </div>
+          <div class="mock-ctas" style="justify-content: space-between;">
+            <button class="mock-btn mock-btn-secondary">Close</button>
+            <button class="mock-btn mock-btn-primary green">Activate Reviews</button>
+          </div>
+        </div>
+        <div class="changes-list">
+          <h4>Key changes</h4>
+          <ul>
+            <li>Subtitle: generic &rarr; outcome-driven ("best sales tool")</li>
+            <li>Section header: "CAN'T DO THIS YET" (shame) &rarr; "UNLOCK" (aspiration)</li>
+            <li>Stars in Google: visualizes painkiller (stars catch the eye &rarr; shoppers click what looks proven)</li>
+            <li>Reviews on store: compressed — "Ratings and quotes build trust" (shorter, same meaning)</li>
+            <li>Every review: removed "in one place" (buying-stage prop, not in-product value)</li>
+            <li>Review page: compressed "A public page for SEO and sharing. Your reputation, your domain."</li>
+            <li>Pricing step 3: "Pay more" &rarr; "Price stays fair"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 5 -->
+  <div class="screen">
+    <div class="screen-header">
+      <h2>Screen 5: Expanded Pricing View</h2>
+      <p>Detailed pricing breakdown in the billing sidebar</p>
+    </div>
+    <div class="comparison">
+      <div class="side side-before">
+        <span class="side-label">Current</span>
+        <div class="mock-sidebar">
+          <p class="desc" style="font-size: 13px; margin-bottom: 16px;">At 43 orders/mo, your scale gives you the 0 - 50 tier - just PLN 1.14 per order</p>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+            <div>
+              <div style="font-size: 12px; color: #888;">Monthly cost</div>
+              <div style="font-size: 22px; font-weight: 700;">~PLN 49.00</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 12px; color: #888;">Estimated additional revenue</div>
+              <div style="font-size: 18px; font-weight: 700; color: #16a34a;">PLN 6,000.00 -<br>PLN 20,000.00</div>
+            </div>
+          </div>
+          <div class="mock-value-line">
+            <span class="check">&#10003;</span> You only pay more when your store does better
+          </div>
+          <div class="mock-badges">
+            <span class="mock-badge">All prices exclude tax</span>
+            <span class="mock-badge">No hidden fees</span>
+          </div>
+        </div>
+      </div>
+      <div class="side side-after">
+        <span class="side-label">Rewrite</span>
+        <div class="mock-sidebar">
+          <p class="desc" style="font-size: 13px; margin-bottom: 16px; font-weight: 500;">43 orders/mo = PLN 1.14 per order.</p>
+          <div class="mock-roi">
+            <div class="roi-cost">Monthly cost: ~PLN 49</div>
+            <div class="roi-revenue">Estimated extra revenue: PLN 6,000 – 20,000</div>
+            <div class="roi-multiplier">Up to 400x return.</div>
+          </div>
+          <div class="mock-value-line">
+            <span class="check">&#10003;</span> Your cost only grows when your revenue does.
+          </div>
+          <div class="mock-badges">
+            <span class="mock-badge">All prices exclude tax</span>
+            <span class="mock-badge">No hidden fees</span>
+          </div>
+        </div>
+        <div class="changes-list">
+          <h4>Key changes</h4>
+          <ul>
+            <li>Headline: compressed — "43 orders/mo = PLN 1.14 per order" (no filler words)</li>
+            <li>ROI multiplier: "That's up to 400x return on what you pay" &rarr; "Up to 400x return." (same punch, half the words)</li>
+            <li>Value line: "pay more" &rarr; "cost grows when revenue does"</li>
+            <li>Revenue estimate stays the hero number with visual emphasis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 </body>
 </html>
